@@ -13,7 +13,4 @@ def solution(s):
         else :
             stack.append(word)
 
-    if stack :
-        return 0
-    else :
-        return 1
+    return not(stack)
