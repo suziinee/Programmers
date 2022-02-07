@@ -1,6 +1,6 @@
 def solution(lottos, win_nums):
     ans = []
-    zero_count = len([x for x in lottos if x == 0])
+    zero_count = lottos.count(0)
 
     # 최고 순위 만들기
     lottos_new = [x for x in lottos if x != 0]
