@@ -1,3 +1,2 @@
 def solution(a, b):
-    n = len(a)
-    return sum([a[i] * b[i] for i in range(n)])
+    return sum([x*y for x, y in zip(a,b)])
