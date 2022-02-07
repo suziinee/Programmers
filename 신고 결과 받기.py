@@ -1,8 +1,7 @@
 def solution(id_list, report, k):
 
-    d = {} # 신고당한애 : [신고한애들]
-    for id in id_list :
-        d[id] = []
+    d = {x : [] for x in id_list} # 신고당한애 : [신고한애들]
+    
 
     for r in report :
         ids = r.split()
