@@ -1,21 +1,18 @@
-def solution(progresses, speeds) : 
+def solution(progresses, speeds):
     answer = []
-    cnt = 0
+    time = 0
+    count = 0
     
-    progresses = [100-x for x in progresses]
-
-    while progresses :
-        progresses = [x - y for x, y in zip(progresses, speeds)]
-        for i in progresses[:] :
-            if i <= 0 :
-                cnt += 1
-                progresses.pop(0)
-                continue
-            else :
-                break
-        if cnt >= 1 :
-            answer.append(cnt)
-            cnt = 0
-                
+    while len(progresses)> 0:
+        if (progresses[0] + time*speeds[0]) >= 100:
+            progresses.pop(0)
+            speeds.pop(0)
+            count += 1
+        else:
+            if count > 0:
+                answer.append(count)
+                count = 0
+            time += 1
+    answer.append(count)
+    
     return answer
-
