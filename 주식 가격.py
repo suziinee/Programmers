@@ -1,19 +1,21 @@
 def solution(prices):
     answer = []
     
-    for i in prices[:] :
-        if len(prices) == 1 :
-            answer.append(0)
-            break
-        elif prices[0] <= min(prices[1:]) :
-            answer.append(len(prices) - 1)
-            prices.pop(0)
-            continue
+    from collections import deque
+    queue = deque(prices)
+    
+    while len(queue) >= 2 :
+        count = 0
+        price = queue.popleft()
+        for q in queue :
+            if q >= price :
+                count += 1
+            else :
+                answer.append(count + 1)
+                break
         else :
-            for j in prices[1:] :
-                if j < i :
-                    answer.append(prices.index(j))
-                    prices.pop(0)
-                    break
-                    
+            answer.append(count)
+    
+    answer.append(0)
+    
     return answer
