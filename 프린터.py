@@ -1,22 +1,16 @@
 def solution(priorities, location):
 
-    from collections import deque
-    p = deque(priorities)
-
-    for i in range(len(priorities)) :
-        priorities[i] = [priorities[i], i] # [value, index]
+    priorities = [(i, v) for i, v in enumerate(priorities)]
 
     res = []
-    while len(p) >= 2 :
-        first = p.popleft()
+    while len(priorities) >= 2 :
         pr_first = priorities.pop(0)
-        if max(p) > first :
-            p.append(first)
+        if any(pr_first[1] < p[1] for p in priorities) :
             priorities.append(pr_first)
         else :
             res.append(pr_first)
     res.append(priorities[0])
 
     for comb in res :
-        if comb[1] == location :
+        if comb[0] == location :
             return res.index(comb) + 1
