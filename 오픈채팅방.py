@@ -18,11 +18,6 @@ def solution(record):
         elif r[0] == "Change" :
             d[id] = nickname
     
-    ans = []
-    
-    for set in res :
-        id = set[0]
-        sentence = set[1]
-        ans.append(sentence.replace(id, d[id]))
+    ans = [i[1].replace(i[0], d[i[0]]) for i in res]
     
     return ans
