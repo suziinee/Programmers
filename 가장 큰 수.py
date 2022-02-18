@@ -1,24 +1,27 @@
-def solution(numbers):
-   
-    d = {int(x[0]) : [] for x in list(map(str, numbers))} 
+def solution(numbers) :
     
-    for i in list(map(str, numbers)) :
-        d[int(i[0])].append(int(i))
+    def changing(n) :
+        n = str(n)
+        if len(n) == 1 :
+            n = n * 4
+        elif len(n) == 2 :
+            n = n * 2
+        elif len(n) == 3 :
+            n = n + n[0]
+        return n #string
     
-    from itertools import permutations
+    from collections import defaultdict
+    d = defaultdict(list) #string : [원래 숫자]
+    for x in numbers :
+        d[changing(x)].append(x)
     
-    for key, value in d.items() :
-        if len(value) != 1 :
-            res = []
-            perms = list(permutations(value, len(value)))
-            for perm in perms :
-                res.append(int(''.join(list(map(str, perm)))))
-            d[key] = max(res)
-        else :
-            d[key] = value[0]
-            
+    for k, v in d.items() :
+        d[k] = ''.join(list(map(str, v)))
+
+    res = sorted(d.items(), reverse = True)
+    
     ans = ''
-    for key in sorted(d.keys(), reverse = True) :
-        ans += str(d[key])
-        
-    return ans
+    for r in res :
+        ans += str(r[1])
+    
+    return str(int(ans))
