@@ -24,9 +24,12 @@ def solution(tickets):
             res.append(now)
             for after in graph[s.index(now)] :
                 if [now, after] in tickets :
-                    q.append(after)
-                    tickets.remove([now, after])
-                    break
+                    if (len(tickets) == 1) or (after in [t[0] for t in tickets]) :
+                        q.append(after)
+                        tickets.remove([now, after])
+                        break
+                    else :
+                        continue
                     
         res.append(q.popleft())
    
