@@ -19,8 +19,8 @@ def solution(numbers, hand) :
             x = d[num][0]
             y = d[num][1]
 
-            l_len = (l[0] - x)**2 + (l[1] - y)**2
-            r_len = (r[0] - x)**2 + (r[1] - y)**2
+            l_len = abs(l[0] - x) + abs(l[1] - y)
+            r_len = abs(r[0] - x) + abs(r[1] - y)
 
             if l_len > r_len :
                 res += "R"
