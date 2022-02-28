@@ -1,11 +1,10 @@
 def solution(clothes) :
 
     from collections import defaultdict
-    d = defaultdict(list)
+    d = defaultdict(int)
 
     for c in clothes :
-        d[c[1]].append(d[c[0]])
-    d = {key : len(value) for key, value in d.items()}
+        d[c[1]] += 1
     
     combs = set()
     from itertools import combinations
