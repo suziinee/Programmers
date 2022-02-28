@@ -13,10 +13,11 @@ def solution(clothes) :
     
     combs = list(combs)
     ans = 0
-    from functools import reduce
     for c in combs :
-        c_list = [d[c[i]] for i in range(len(c))]
-        ans += reduce(lambda x, y : x * y, c_list)
+        mul = 1
+        for i in c :
+            mul *= d[i]
+        ans += mul
         
     return ans
 
