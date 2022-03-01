@@ -1,20 +1,17 @@
 def solution(n, arr1, arr2):
     
-    def bin_change(s, n) :
-        l = list(s)
-        l.remove('b')
-        l = l[1:]
-        while len(l) < n :
-            l.insert(0, '0')
-        return ''.join(l)
-    
-    new = []
-    for i in range(n) :
-        new.append(bin_change(bin(arr1[i] | arr2[i]), n))
-    
+    arr1 = [bin(i)[2:].zfill(n) for i in arr1]
+    arr2 = [bin(i)[2:].zfill(n) for i in arr2]
+
     ans = []
-    for i in new :
-        i = i.replace('1', '#')
-        i = i.replace('0', ' ')
-        ans.append(i)
-    return ans
+
+    for a, b in zip(arr1, arr2) :
+        res = ''
+        for i in range(n) :
+            res += str(int(a[i]) | int(b[i]))
+        ans.append(res)
+
+    ans = [i.replace('1', '#') for i in ans]
+    ans = [i.replace('0', ' ') for i in ans]
+
+    return ans  
