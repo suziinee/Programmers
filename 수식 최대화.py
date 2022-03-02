@@ -52,7 +52,7 @@ def solution(expression) :
         copy_ex = stack_ex
         stack_nums = [copy_nums.popleft()]
         stack_ex = []
-        for e in copy_ex[:] : #"-"
+        for e in copy_ex[:] :
             stack_nums.append(copy_nums.popleft())
             if e == symbol[c[2]] :
                 res = eval(str(stack_nums.pop(-2)) + e + str(stack_nums.pop(-1)))
