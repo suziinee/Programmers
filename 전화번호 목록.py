@@ -1,12 +1,13 @@
 def solution(phone_book) :
 
-    phone_book.sort(key = lambda x : len(x))
-    phone_book.sort()
+    hash = {p : 1 for p in phone_book}
 
-    for i in range(len(phone_book) - 1) :
-        if phone_book[i + 1].find(phone_book[i]) == 0 :
-            return False
-    
+    for num in phone_book :
+        temp = ""
+        for n in num :
+            temp += n
+            if temp in hash and temp != num :
+                return False
     return True
     
     
