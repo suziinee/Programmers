@@ -1,5 +1,31 @@
 def solution(tickets):
     
+    hash = {t[0] : [] for t in tickets}
+    for t in tickets :
+        hash[t[0]].append(t[1])
+    for value in hash.values() :
+        value.sort(reverse = True)
+    
+    stack = ['ICN']
+    path = []
+    while stack :
+        top = stack[-1]
+        if top not in hash :
+            path.append(stack.pop())
+        elif len(hash[top]) == 0 :
+            path.append(stack.pop())
+        else :
+            stack.append(hash[top].pop())
+    
+    return path[::-1]
+
+
+
+
+
+
+
+
     s = set()
     for t in tickets :
         s |= set(t)
@@ -13,8 +39,20 @@ def solution(tickets):
         graph[s.index(t[1])].append(t[0])
     
     graph = [sorted(list(set(g))) for g in graph]
+
+    visited = [False] * len(tickets)
     
     res = []
+    
+    def dfs(graph, v, tickets, visited) :
+        res.append(v)
+        for after in graph[v] :
+            if [v, after] in tickets :
+                if visited[tickets.index([v, after])] == False :
+                    dfs(graph, after, tickets, visited)
+
+
+    
     
     from collections import deque
     def bfs(graph, start, tickets) :
