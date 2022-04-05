@@ -1,45 +1,32 @@
-def solution(n, lost, reserve):
-    all = list(range(1, n + 1))
+def solution(n, lost, reserve) :
     
-    # reserve도, lost도 아닌 애들
-    default = list(set(all) - set(lost) - set(reserve))
+    lost = set(lost)
+    reserve = set(reserve)
 
-    # 여벌이 있는 애가 lost 했다면 여벌, lost에서 제외하기
-    for i in reserve[:] :
-        if i in lost[:] :
-            reserve.remove(i)
-            lost.remove(i)
-            default.append(i)
+    # rest : 체육복 문제가 해결된 아이들
+    rest = set(range(1, n + 1))
 
-    # all = list(set(all) - set(default))
-    reserve.sort()
-    lost.sort()
+    # lost에 있는 아이들 빼기
+    rest -= lost
 
-    for i in reserve[:] :
-        print(i)
-        if i != 1 :
-            if i-1 in lost :
-                # i-1이 우선권을 가짐
-                lost.remove(i-1)
-                reserve.remove(i)
-                default.append(i)
-                default.append(i-1)
-                continue
-            elif i+1 in lost :
-                lost.remove(i+1)
-                reserve.remove(i)
-                default.append(i)
-                default.append(i+1)
-                continue
-        elif i == 1 :
-            if 2 in lost :
-                lost.remove(2)
-                reserve.remove(1)
-                default.append(1)
-                default.append(2)
-              
-    # 여벌에 있는 양수 애들 default에 넣어주기
-    for i in reserve :
-        default.append(i)
+    # lost에 있는 아이들 중에 reserve가 있는 아이들은 빌려줄 수 없음
+    lost_reserve = set([x for x in lost if x in reserve])
+    lost -= lost_reserve 
+    reserve -= lost_reserve
+    rest.update(lost_reserve)
+
+    # lost_dict {lost : [lost + 1, lost - 1]}
+    lost_dict = {x : [x-1, x+1] for x in lost}
+    for l in list(lost) :
+        if lost_dict[l][0] in reserve :
+            lost -= set([l])
+            reserve -= set([l - 1])
+            rest.update(set([l]))
+            continue
+        elif lost_dict[l][1] in reserve :
+            lost -= set([l])
+            reserve -= set([l + 1])
+            rest.update(set([l]))
+            continue
     
-		return len(default)
+    return len(rest)
