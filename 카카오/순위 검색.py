@@ -7,14 +7,22 @@ def solution(info, query) :
         info_dict[i] = v.split()
     
     query = [[x for x in q.split() if x not in ['and', '-']] for q in query]
+
+    # 점수 정렬
+    info_dict = sorted(info_dict.items(), key = lambda x : int(x[1][-1]))
+
+    # 점수만 따로 빼기
+    scores = [int(x[1][-1]) for x in info_dict]
+
+    from bisect import bisect_left
     
     for q in query :
-        score = q.pop()
+        score = int(q.pop())
+        idx = bisect_left(scores, score)
         cnt = 0
-        for k, v in info_dict.items() :
-            if set(q) - set(v) == set() :
-                if int(v[-1]) >= int(score) : 
-                    cnt += 1
+        for x in info_dict[idx:] :
+            if set(q) - set(x[1]) == set() :
+                cnt += 1
         ans.append(cnt)
-        
+
     return ans
